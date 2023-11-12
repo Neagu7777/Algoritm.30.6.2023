@@ -1,0 +1,80 @@
+Классическая Queue - реализовать используя массив (Array)
+
+empty — проверка очереди на наличие в ней элементов,
+push — операция вставки нового элемента,
+pop — операция удаления нового элемента,
+size — операция получения количества элементов в очереди.
+
+
+arr;             // массив для хранения элементов queue
+   head;         // head указывает на первый элемент в queue
+   tail;            // tail часть указывает на последний элемент в queue
+   capacity;   // максимальная емкость queue
+   count;        // текущий размер queue
+
+
+пример реализации классической очереди (Queue) с использованием массива (Array) на языке Java:
+
+public class Queue<T> {
+    private Object[] arr;
+    private int head;
+    private int tail;
+    private int capacity;
+    private int count;
+
+    public Queue(int capacity) {
+        this.arr = new Object[capacity];
+        this.head = 0;
+        this.tail = -1;
+        this.capacity = capacity;
+        this.count = 0;
+    }
+
+    public boolean empty() {
+        return count == 0;
+    }
+
+    public void push(T element) {
+        if (count == capacity) {
+            System.out.println("Queue is full. Cannot push element.");
+            return;
+        }
+
+        tail = (tail + 1) % capacity;
+        arr[tail] = element;
+        count++;
+    }
+
+    public void pop() {
+        if (empty()) {
+            System.out.println("Queue is empty. Cannot pop element.");
+            return;
+        }
+
+        head = (head + 1) % capacity;
+        count--;
+    }
+
+    public int size() {
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Queue<Integer> queue = new Queue<>(5);
+
+        System.out.println("Is the queue empty? " + queue.empty());
+
+        queue.push(1);
+        queue.push(2);
+        queue.push(3);
+
+        System.out.println("Size of the queue: " + queue.size());
+
+        queue.pop();
+
+        System.out.println("Size of the queue after pop: " + queue.size());
+    }
+}
+
+Этот код реализует базовые операции очереди, такие как проверка на пустоту (empty), 
+добавление элемента (push), удаление элемента (pop) и получение размера очереди (size).
